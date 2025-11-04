@@ -1,8 +1,9 @@
- // script.js
+// script.js
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
     // 1. Definir el CÓDIGO BASE con el marcador de posición para la inserción
+    // NOTA: La etiqueta <pre class="usuario-codigo"> ha sido eliminada.
     const CODIGO_BASE = `
 <!DOCTYPE html>
 <html>
@@ -14,17 +15,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         <h2>Resultado del Proceso</h2>
         <p>Esta es la parte vacía que ha sido completada:</p>
         
-        <pre class="usuario-codigo">
-            **[INSERTAR_CODIGO_AQUI]**
-        </pre>
+        **[INSERTAR_CODIGO_AQUI]**
 
         <p>Proceso completado exitosamente.</p>
     </div>
-    <script>
-        // La entrada del usuario insertada aquí para fines de depuración/uso:
-        const codigo_incrustado = "**[INSERTAR_CODIGO_AQUI]**";
-        console.log("El código incrustado es:", codigo_incrustado);
-    </script>
 </body>
 </html>
 `;
@@ -46,6 +40,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const CODIGO_FINAL = CODIGO_BASE.replace(MARCADOR, entradaUsuario);
 
         // Mostrar el código final
+        // Nota: la salida se sigue mostrando en <pre id="codigoSalida"> en el HTML principal
+        // para mantener el formato legible al usuario.
         salidaElemento.textContent = CODIGO_FINAL;
     }
 
