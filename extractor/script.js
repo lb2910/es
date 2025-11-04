@@ -1,8 +1,8 @@
-// script.js
+// script.js (Versión Corregida para Descarga)
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    // 1. Definir el CÓDIGO BASE (plantilla HTML sin etiquetas innecesarias)
+    // 1. Definir el CÓDIGO BASE (plantilla HTML)
     const CODIGO_BASE = `
 <!DOCTYPE html>
 <html>
@@ -29,44 +29,51 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const salidaElemento = document.getElementById('codigoSalida');
     const MARCADOR = /\*\*\[INSERTAR\_CODIGO\_AQUI\]\*\*/g;
     
-    let codigoFinalGenerado = ""; // Almacena el código para que la función de descarga pueda usarlo
+    // Almacena el código generado para la función de descarga
+    let codigoFinalGenerado = ""; 
 
     // 3. Función para generar y mostrar el código
     function generarCodigoCompleto() {
         let entradaUsuario = inputElement.value;
-        // Sanear la entrada para que no rompa el string en JavaScript
+        // Sanear la entrada
         entradaUsuario = entradaUsuario.replace(/"/g, '\\"').replace(/\n/g, '\\n');
         
-        // Generar y almacenar el código final
+        // Generar y ALMACENAR el código final
         codigoFinalGenerado = CODIGO_BASE.replace(MARCADOR, entradaUsuario);
 
-        // Mostrar el código final en el área de salida
+        // Mostrar el código final
         salidaElemento.textContent = codigoFinalGenerado;
         
-        // Habilitar el botón de descarga solo después de generar
+        // Habilitar el botón de descarga
         botonDescargar.disabled = false; 
     }
 
     // 4. Función de DESCARGA (usa Blob para crear el archivo)
     function descargarCodigo() {
-        // 1. Crear un objeto Blob (Binary Large Object) con el código y tipo HTML
+        // **VALIDACIÓN CRÍTICA:** Detiene la descarga si la variable está vacía
+        if (!codigoFinalGenerado) {
+            alert("Error: Debe generar el código primero.");
+            return;
+        }
+
+        // Crear un objeto Blob con el código y tipo HTML
         const blob = new Blob([codigoFinalGenerado], { type: 'text/html' });
         
-        // 2. Crear una URL temporal para ese Blob
+        // Crear una URL temporal para ese Blob
         const url = URL.createObjectURL(blob);
         
-        // 3. Crear un enlace <a> temporal en memoria
+        // Crear un enlace <a> temporal en memoria
         const a = document.createElement('a');
         
-        // 4. Configurar la descarga
+        // Configurar la descarga
         a.href = url;
         a.download = 'index.html'; // Nombre del archivo
 
-        // 5. Simular clic para forzar la descarga
+        // Simular clic para forzar la descarga
         document.body.appendChild(a);
         a.click();
         
-        // 6. Limpieza: remover el enlace y liberar la memoria
+        // Limpieza: importante para liberar memoria
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
