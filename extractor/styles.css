@@ -1,4 +1,4 @@
-/* styles.css */
+ /* styles.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -36,7 +36,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     width: 100%;
-    margin-bottom: 10px; /* Espacio entre botones */
+    margin-bottom: 10px; 
 }
 
 button:hover {
@@ -44,7 +44,7 @@ button:hover {
 }
 
 button:disabled {
-    background-color: #adb5bd; /* Gris para deshabilitado */
+    background-color: #adb5bd; 
     cursor: not-allowed;
 }
 
