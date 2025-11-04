@@ -1,80 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Extractor visual de imágenes</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #f0f0f0;
-    }
-    input, button {
-      padding: 0.5rem;
-      font-size: 1rem;
-      margin: 0.5rem 0.5rem 0.5rem 0;
-    }
-    #preview {
-      display: none; /* Oculta el iframe */
-    }
-    .galeria {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .galeria img {
-      width: 100%;
-      height: auto;
-      border: 1px solid #ccc;
-      background: white;
-      padding: 4px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Código Dinámico</title>
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
-  <h1>🖼️ Extraer y mostrar imágenes de una URL</h1>
-  <input type="text" id="urlInput" placeholder="https://ejemplo.com" size="50">
-  <button onclick="cargarIframe()">Extraer imágenes</button>
-  <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
-  <div class="galeria" id="galeria"></div>
 
-  <script>
-    function cargarIframe() {
-      const url = document.getElementById("urlInput").value;
-      const iframe = document.getElementById("preview");
-      iframe.src = url;
+    <div class="container">
+        <h1>Generador de Código Dinámico 🛠️</h1>
+        <p>Introduce tu fragmento de código o dígitos para incrustarlos en la plantilla base.</p>
 
-      iframe.onload = () => {
-        try {
-          const doc = iframe.contentDocument || iframe.contentWindow.document;
-          const urls = new Set();
+        <label for="codigoInput">Ingrese su Código/Datos (muchos dígitos/texto):</label>
+        <input type="text" id="codigoInput" placeholder="Ej: ID-4567-XYZ-890" required>
 
-          // Extraer <img>
-          doc.querySelectorAll("img").forEach(img => {
-            if (img.src.match(/\.(jpg|jpeg|png|gif)$/i)) urls.add(img.src);
-          });
+        <button id="generarBtn">Generar Código Completo</button>
 
-          // Extraer background-image
-          doc.querySelectorAll("*").forEach(el => {
-            const bg = getComputedStyle(el).backgroundImage;
-            const match = bg.match(/url\(["']?(.*?)["']?\)/);
-            if (match && match[1].match(/\.(jpg|jpeg|png|gif)$/i)) urls.add(match[1]);
-          });
+        <hr>
 
-          // Mostrar como imágenes
-          const galeria = document.getElementById("galeria");
-          galeria.innerHTML = "";
-          urls.forEach(src => {
-            const img = document.createElement("img");
-            img.src = src;
-            galeria.appendChild(img);
-          });
-        } catch (err) {
-          alert("No se pudo acceder al contenido por restricciones de seguridad (CORS o X-Frame-Options).");
-        }
-      };
-    }
-  </script>
+        <h2>Código HTML Final Generado:</h2>
+        <pre id="codigoSalida" class="codigo-box">Aquí se mostrará el código final...</pre>
+    </div>
+
+    <script src="script.js"></script> 
 </body>
 </html>
