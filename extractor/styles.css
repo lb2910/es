@@ -36,10 +36,16 @@ button {
     cursor: pointer;
     font-size: 16px;
     width: 100%;
+    margin-bottom: 10px; /* Espacio entre botones */
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #adb5bd; /* Gris para deshabilitado */
+    cursor: not-allowed;
 }
 
 .codigo-box {
